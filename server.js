@@ -67,20 +67,24 @@ mongoose
   });
 
 app.get("/", async (req, res) => {
-  if (Image) {
-    const Images = await Image.find({ title: { $ne: "top-image" } }).sort({
-      order: 1,
-    });
-    const topImage = await Image.findOne({ title: "top-image" });
-    console.log(topImage);
-    const Segments = await Segment.find({});
-    res.render("index.ejs", {
-      images: Images,
-      segments: Segments,
-      topImage: topImage,
-    });
-  } else {
-    res.render("index.ejs");
+  try {
+    if (Image) {
+      const Images = await Image.find({ title: { $ne: "top-image" } }).sort({
+        order: 1,
+      });
+      const topImage = await Image.findOne({ title: "top-image" });
+      console.log(topImage);
+      const Segments = await Segment.find({});
+      res.render("index.ejs", {
+        images: Images,
+        segments: Segments,
+        topImage: topImage,
+      });
+    } else {
+      res.render("index.ejs");
+    }
+  } catch (err) {
+    console.log(err.message);
   }
 });
 
