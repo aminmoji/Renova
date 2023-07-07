@@ -2,8 +2,8 @@ name: Deploy Node.js app with index.ejs
 
 on:
   push:
-    branches: ["master"]
-
+    branches:
+      - master
   workflow_dispatch:
 
 permissions:
@@ -27,12 +27,15 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Set default index file
-        run: echo "env: PAGES_INDEX_FILE=index.ejs" >> $GITHUB_ENV
+        run: echo "env:PAGES_INDEX_FILE=index.ejs" >> $GITHUB_ENV
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
-          # Upload entire repository
-          path: '.'
+          name: pages
+          path: .
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifact: pages
