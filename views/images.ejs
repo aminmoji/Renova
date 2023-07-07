@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+        <title>Edit Images</title>
+    </head>
+    <style>
+            .container {
+      margin-top: 0;
+      margin-bottom: 1vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50vh;
+    }
+    </style>
+    <body>
+        <%- include("./partials/nav.ejs") %>
+        <div class="container">
+            <div class="row mt-3">
+              <div class="col-auto">
+                <h1 class="mb-4">Upload Images</h1>
+                <form action="/images/" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                      <label for="title" class="form-label">Title</label>
+                      <input type="text" class="form-control" id="title" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="content" class="form-label">Name</label>
+                      <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="content" class="form-label">Order</label>
+                        <input type="number" class="form-control" id="order" name="order">
+                      </div>
+                    <div class="mb-3">
+                      <label for="image" class="form-label">Image</label>
+                      <input type="file" class="form-control" id="image" name="image" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                  </form>
+              </div>
+            </div>
+          </div>
+          <div class="row align-content-center m-auto">
+            <% images.forEach((image) => { %>
+              <div class="col-md-4 mb-3">
+                <div class="card">
+                  <img src="<%= image.imageUrl %>" class="card-img-top" alt="<%=image.name%>">
+                  <div class="card-body">
+                    <h5 class="card-title"><%= image.title %></h5>
+                    <p class="card-text"><%= image.name %></p>
+                    <p class="card-text"><%= image.order %></p>
+                    <div class="d-flex justify-content-between">
+                      <a href="/images/<%= image._id %>/edit" class="btn btn-primary">Edit</a>
+                      <form action="/images/delete/<%= image._id %>?_method=DELETE" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

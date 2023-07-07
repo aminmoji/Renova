@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit Segments</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <style>
+    .container {
+      margin-top: 0;
+      margin-bottom: 1vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50vh;
+    }
+    .row {
+      margin-top: 30px;
+    }
+
+  </style>
+</head>
+<body>
+  <%- include("./partials/nav.ejs") %>
+  <div class="container">
+    <div class="row">
+      <div class="col-auto">
+        <h1 class="mb-4">Upload Segment Info</h1>
+        <form action="/segments/" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+            <div class="mb-3">
+              <label for="content" class="form-label">Content</label>
+              <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="image" class="form-label">Image</label>
+              <input type="file" class="form-control" id="image" name="image" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+          </form>
+      </div>
+    </div>
+  </div>
+  <div class="row align-content-center m-auto">
+    <% segments.forEach((segment) => { %>
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <img src="<%= segment.imageUrl %>" class="card-img-top" alt="Segment Image">
+          <div class="card-body">
+            <h5 class="card-title"><%= segment.title %></h5>
+            <p class="card-text"><%= segment.content %></p>
+            <div class="d-flex justify-content-between">
+              <a href="/segments/edit/<%= segment._id %>" class="btn btn-primary">Edit</a>
+              <form action="/segments/<%= segment._id %>?_method=DELETE" method="POST" style="display: inline;">
+                <button type="submit" class="btn btn-danger">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+        <title>Edit Images</title>
+    </head>
+    <style>
+            .container {
+      margin-top: 5px;
+      margin-bottom: 1vh;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50vh;
+    }
+    .row img {
+    margin: auto;
+    margin-top: 10vh;
+    height: 200px;
+    width: 200px;
+  }
+    </style>
+    <body>
+        <%- include("./partials/nav.ejs") %>
+        <div class="container">
+            <div class="row">
+            <img src="<%= image.imageUrl %>" alt="" srcset="">
+              <div class="container-fluid">
+                <h1>Edit Image</h1>
+                <form action="/images/<%= image._id %>/edit" method="POST">
+                  <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" value="<%= image.title %>" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="content" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="<%= image.name %>" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="content" class="form-label">Order</label>
+                    <input type=""number class="form-control" id="order" name="order"value="<%= image.order %>" >
+                  </div>
+                  <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" class="form-control" id="image" name="image">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>
