@@ -54,7 +54,7 @@ firebase.initializeApp(firebaseConfig);
 const storage = getStorage();
 
 mongoose
-  .connect(MONGO_URL, {
+  .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
