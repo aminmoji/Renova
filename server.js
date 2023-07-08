@@ -38,7 +38,7 @@ const User = require("./models/userModel");
 const Image = require("./models/imageModel");
 const Segment = require("./models/segmentModel");
 
-const { PORT, URL } = process.env;
+const { PORT, MONGO_URL } = process.env;
 
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
@@ -54,7 +54,7 @@ firebase.initializeApp(firebaseConfig);
 const storage = getStorage();
 
 mongoose
-  .connect(URL, {
+  .connect(MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
